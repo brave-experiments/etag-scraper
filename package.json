@@ -1,0 +1,30 @@
+{
+  "name": "etag-scraper",
+  "version": "1.0.0",
+  "description": "Capture eTag information on the web",
+  "main": "cli.js",
+  "scripts": {
+    "lint": "./node_modules/standard/bin/cmd.js",
+    "lint:fix": "./node_modules/standard/bin/cmd.js --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brave-experiments/etag-scraper.git"
+  },
+  "author": "Peter Snyder <pes@brave.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brave-experiments/etag-scraper/issues"
+  },
+  "homepage": "https://github.com/brave-experiments/etag-scraper#readme",
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "puppeteer": "^5.2.1",
+    "puppeteer-extra": "^3.1.13",
+    "puppeteer-extra-plugin-stealth": "^2.4.14",
+    "validator": "^13.1.1"
+  },
+  "devDependencies": {
+    "standard": "^14.3.4"
+  }
+}
