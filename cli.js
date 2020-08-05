@@ -22,7 +22,12 @@ parser.addArgument(['-v', '--verbose'], {
 parser.addArgument(['-s', '--seconds'], {
   type: 'int',
   help: 'How long to let each page load during measurement.',
-  defaultValue: 30
+  defaultValue: 15
+})
+parser.addArgument(['-d', '--depth'], {
+  type: 'int',
+  help: 'How many same-eTLD+1 links to visit on the page.',
+  defaultValue: 0
 })
 const cliArgs = parser.parseArgs();
 

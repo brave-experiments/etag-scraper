@@ -22,6 +22,8 @@
     "puppeteer": "^5.2.1",
     "puppeteer-extra": "^3.1.13",
     "puppeteer-extra-plugin-stealth": "^2.4.14",
+    "random-js": "^2.1.0",
+    "tldjs": "^2.3.1",
     "validator": "^13.1.1"
   },
   "devDependencies": {

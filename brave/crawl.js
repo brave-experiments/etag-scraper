@@ -7,32 +7,18 @@ const validatorLib = require('validator')
 const browserLib = require('./browser')
 
 const run = async settings => {
-  const { url, output, log, verbose, secs } = settings
+  const { url, verbose } = settings
 
   const puppeteerArgs = {
     headless: !verbose
   }
 
-  const requests = []
-  const boundOnRequest = browserLib.onResponse.bind(undefined, requests, log)
-
   puppeteerLib.use(stealthPluginLib())
   const browser = await puppeteerLib.launch(puppeteerArgs)
   const page = await browser.newPage()
-  page.on('response', boundOnRequest)
-  try {
-    await page.goto(url)
-    await page.waitFor(secs * 1000)
-  } catch (e) {
-    log.write(`Puppeteer exception caught: ${e}\n`)
-  }
 
+  await browserLib.measurePage(settings, page, url)
   await browser.close()
-
-  output.write(JSON.stringify({
-    url,
-    requests
-  }))
 }
 
 const argsToSettings = async cliArgs => {
@@ -41,7 +27,8 @@ const argsToSettings = async cliArgs => {
     output: undefined,
     log: undefined,
     verbose: false,
-    secs: undefined
+    secs: undefined,
+    depth: undefined
   }
 
   const urlArgs = {
@@ -68,10 +55,15 @@ const argsToSettings = async cliArgs => {
     }
   }
 
-  if (cliArgs <= 0) {
+  if (cliArgs.seconds <= 0) {
     return [false, `Cannot have a negative dwell time, got ${cliArgs.seconds}`]
   }
   settings.secs = cliArgs.seconds
+
+  if (cliArgs.depth < 0) {
+    return [false, `Cannot specify a negative depth, got ${cliArgs.depth}`]
+  }
+  settings.depth = cliArgs.depth
 
   return [true, settings]
 }
